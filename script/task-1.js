@@ -1,7 +1,10 @@
 import imgSrc from "./image-gallery.js";
 
 const galleryBox = document.querySelector('.js-gallery');
+const modalWindow = document.querySelector('.lightbox');
+const modalWindowImage = document.querySelector('.lightbox__image')
 const createItems = createGalleryItem(imgSrc);
+
 
 galleryBox.insertAdjacentHTML('beforeend', createItems);
 galleryBox.addEventListener('click', onGalleryClick);
@@ -14,8 +17,8 @@ function createGalleryItem(imgSrc) {
       <a class="gallery__link" href="${original}">
         <img
           class="gallery__image"
-          src="${original}"
-          data-source="${preview}"
+          src="${preview}"
+          data-source="${original}"
           alt="${description}"
         />
       </a>
@@ -27,6 +30,21 @@ function createGalleryItem(imgSrc) {
 
 function onGalleryClick(event) {
   event.preventDefault()
-
   if(event.target.nodeName !== "IMG") return;
+  openModal();
+  setImageAttributes(event);
+  
+}
+
+function openModal() {
+  modalWindow.classList.add('is-open');
+};
+
+function closeModal() {
+  modalWindow.classList.remove('is-open');
+};
+
+function setImageAttributes(event) {
+  modalWindowImage.setAttribute("src", event.target.dataset.source);
+  modalWindowImage.setAttribute("alt", event.target.getAttribute("alt"));
 }
