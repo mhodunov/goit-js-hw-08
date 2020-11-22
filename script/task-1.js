@@ -11,6 +11,7 @@ galleryBox.insertAdjacentHTML('beforeend', createItems);
 galleryBox.addEventListener('click', onGalleryClick);
 closeModalButton.addEventListener('click', closeModal);
 window.addEventListener('keydown', closeModalOnEsc);
+modalWindow.addEventListener('click', closeModalOnSideClick)
 
 function createGalleryItem(imgSrc) {
   return imgSrc
@@ -52,6 +53,11 @@ function closeModalOnEsc(event) {
   if(event.code !== "Escape" || !modalWindow.classList.contains('is-open')) return;
   closeModal();
 };
+
+function closeModalOnSideClick(event) {
+  if(event.target.nodeName === 'IMG') return;
+  closeModal();
+}
 
 function setImageAttributes(event) {
   modalWindowImage.setAttribute("src", event.target.dataset.source);
