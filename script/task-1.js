@@ -14,8 +14,6 @@ const galleryItemsQty = document.querySelectorAll('.gallery__image').length; //�
 //Слушатели событий
 galleryBox.addEventListener('click', onGalleryClick); //Открытие по клику на изображение
 closeModalButton.addEventListener('click', closeModal); //Закрытие по клику на кнопку
-window.addEventListener('keydown', closeModalOnEsc); //Закрытие по нажатию Esc
-window.addEventListener('keydown', carousel); //Перелистывание вправо/влево
 modalWindow.addEventListener('click', closeModalOnSideClick); //Закрытие по клику на область вокруг изображения
 
 //Добавление разметки галереи с данными из объекта
@@ -46,9 +44,11 @@ function onGalleryClick(event) {
   setImageAttributes(event);
   
 }
-//Добавление класса .is-open при открытии модального окна
+//Добавление класса .is-open и слушателей событий при открытии модального окна
 function openModal() {
   modalWindow.classList.add('is-open');
+  window.addEventListener('keydown', closeModalOnEsc); //Закрытие по нажатию Esc
+  window.addEventListener('keydown', carousel); //Перелистывание вправо/влево
 };
 //Функция для работы перелистывания вправо/влево
 function carousel(event) {
@@ -76,10 +76,12 @@ function carouselBackward() {
   };
   switchImage(index);
 };
-//Закрытие модального окна
+//Закрытие модального окна и удаление слушателей событий (стрелки и Esc)
 function closeModal() {
   modalWindow.classList.remove('is-open');
   clearImageAttributes();
+  window.removeEventListener('keydown', closeModalOnEsc); //Закрытие по нажатию Esc
+  window.removeEventListener('keydown', carousel); //Перелистывание вправо/влево
 };
 //Закрытие модального окна при нажатии на Esc
 function closeModalOnEsc(event) {
