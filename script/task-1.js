@@ -52,7 +52,7 @@ function openModal() {
 };
 //Функция для работы перелистывания вправо/влево
 function carousel(event) {
-  if (event.code !== "ArrowRight" && event.code !== "ArrowLeft" || !modalWindow.classList.contains('is-open')) return;
+  if (event.code !== "ArrowRight" && event.code !== "ArrowLeft") return;
   if (event.code === "ArrowRight") {
     carouselForward();
   };
@@ -85,7 +85,7 @@ function closeModal() {
 };
 //Закрытие модального окна при нажатии на Esc
 function closeModalOnEsc(event) {
-  if(event.code !== "Escape" || !modalWindow.classList.contains('is-open')) return;
+  if(event.code !== "Escape") return;
   closeModal();
 };
 //Закрытие модального окна при клике на область вокруг изображения
